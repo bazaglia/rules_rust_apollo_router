@@ -8,8 +8,9 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive", "http_file"
 
 http_archive(
     name = "rules_rust",
-    strip_prefix = "rules_rust-fix-crate-exclude-glob-spaces",
-    urls = ["https://github.com/bazaglia/rules_rust/archive/refs/heads/fix/crate-exclude-glob-spaces.zip"],
+    sha256 = "da67916d7e416b7dd3d8725c672caeeaf9fad8ffda963dc84e77a2120e3475b5",
+    strip_prefix = "rules_rust-fix-common-glob-exclude",
+    urls = ["https://github.com/bazaglia/rules_rust/archive/refs/heads/fix/common-glob-exclude.zip"],
 )
 
 load("@rules_rust//rust:repositories.bzl", "rules_rust_dependencies", "rust_register_toolchains")
@@ -22,10 +23,42 @@ load("@rules_rust//crate_universe:repositories.bzl", "crate_universe_dependencie
 
 crate_universe_dependencies(bootstrap = True)
 
-load("@rules_rust//crate_universe:defs.bzl", "crates_repository")
+load("@rules_rust//crate_universe:defs.bzl", "crate", "crates_repository")
 
 crates_repository(
     name = "crate_index",
+    annotations = {
+        "v8": [crate.annotation(
+            additive_build_file_content = """\
+config_setting(
+    name = "linux",
+    constraint_values = ["@platforms//os:linux"],
+)
+
+config_setting(
+    name = "macos",
+    constraint_values = ["@platforms//os:macos"],
+)
+
+alias(
+    name = "librusty_v8_archive",
+    actual = select({
+        ":macos": "@librusty_v8_release_x86_64-apple-darwin//file",
+        "//conditions:default": "@librusty_v8_release_x86_64-unknown-linux-gnu//file",
+    }),
+)
+
+cc_import(
+    name = "librusty_v8",
+    static_library = ":librusty_v8_archive",
+)
+""",
+            gen_build_script = False,
+            # build_script_data = [":librusty_v8_archive"],
+            # build_script_env = {"RUSTY_V8_ARCHIVE": "$(execpath :librusty_v8_archive)"},
+            deps = [":librusty_v8"],
+        )],
+    },
     cargo_lockfile = "//:Cargo.lock",
     generator = "@cargo_bazel_bootstrap//:cargo-bazel",
     lockfile = "//:cargo-bazel-lock.json",
@@ -39,21 +72,16 @@ load("@crate_index//:defs.bzl", "crate_repositories")
 
 crate_repositories()
 
-# Useful binaries
-
-# Had to provide `rustfmt` to one of the build targets when using cargo-raze.
-http_archive(
-    name = "rustfmt",
-    build_file_content = """exports_files(["rustfmt"])""",
-    sha256 = "177386d87098114d74af0994a868dcc3f975bab066c38e5712f5f30573631e64",
-    strip_prefix = "rustfmt_macos-x86_64_v1.5.1",
-    url = "https://github.com/rust-lang/rustfmt/releases/download/v1.5.1/rustfmt_macos-x86_64_v1.5.1.tar.gz",
+http_file(
+    name = "librusty_v8_release_x86_64-unknown-linux-gnu",
+    downloaded_file_path = "librusty_v8_release_x86_64-unknown-linux-gnu.a",
+    sha256 = "",
+    urls = ["https://github.com/denoland/rusty_v8/releases/download/v0.56.0/librusty_v8_release_x86_64-unknown-linux-gnu.a"],
 )
 
-# Tried to create a cc_import providing file. It didn't work.
 http_file(
-    name = "librusty_v8",
-    downloaded_file_path = "librusty_v8.a",
-    sha256 = "7f4941adac98368ee2bc2a9e25c605e443049e6ae01fea872e87cccdb509f8eb",
-    url = "https://github.com/denoland/rusty_v8/releases/download/v0.44.3/librusty_v8_release_x86_64-apple-darwin.a",
+    name = "librusty_v8_release_x86_64-apple-darwin",
+    downloaded_file_path = "librusty_v8_release_x86_64-apple-darwin.a",
+    sha256 = "",
+    urls = ["https://github.com/denoland/rusty_v8/releases/download/v0.56.0/librusty_v8_release_x86_64-apple-darwin.a"],
 )

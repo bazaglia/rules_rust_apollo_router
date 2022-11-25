@@ -1,5 +1,5 @@
 {
-  "checksum": "fa3b2570490a60f158f1af4a0b96879be646d7181230cdf7e26017c0c68a45ae",
+  "checksum": "b52a5a26a5a49d3597bc6fbf581942203fee743b089d44e3e876f6e72dc6546e",
   "crates": {
     "access-json 0.1.0": {
       "name": "access-json",
@@ -21871,18 +21871,6 @@
               "exclude": []
             }
           }
-        },
-        {
-          "BuildScript": {
-            "crate_name": "build_script_build",
-            "crate_root": "build.rs",
-            "srcs": {
-              "include": [
-                "**/*.rs"
-              ],
-              "exclude": []
-            }
-          }
         }
       ],
       "library_target_name": "v8",
@@ -21907,36 +21895,18 @@
             {
               "id": "libc 0.2.137",
               "target": "libc"
-            },
-            {
-              "id": "v8 0.44.3",
-              "target": "build_script_build"
             }
           ],
           "selects": {}
         },
+        "extra_deps": [
+          ":librusty_v8"
+        ],
         "edition": "2021",
         "version": "0.44.3"
       },
-      "build_script_attrs": {
-        "data_glob": [
-          "**"
-        ],
-        "deps": {
-          "common": [
-            {
-              "id": "fslock 0.1.8",
-              "target": "fslock"
-            },
-            {
-              "id": "which 4.3.0",
-              "target": "which"
-            }
-          ],
-          "selects": {}
-        }
-      },
-      "license": "MIT"
+      "license": "MIT",
+      "additive_build_file_content": "config_setting(\n    name = \"linux\",\n    constraint_values = [\"@platforms//os:linux\"],\n)\n\nconfig_setting(\n    name = \"macos\",\n    constraint_values = [\"@platforms//os:macos\"],\n)\n\nalias(\n    name = \"librusty_v8_archive\",\n    actual = select({\n        \":macos\": \"@librusty_v8_release_x86_64-apple-darwin//file\",\n        \"//conditions:default\": \"@librusty_v8_release_x86_64-unknown-linux-gnu//file\",\n    }),\n)\n\ncc_import(\n    name = \"librusty_v8\",\n    static_library = \":librusty_v8_archive\",\n)\n"
     },
     "valuable 0.1.0": {
       "name": "valuable",
