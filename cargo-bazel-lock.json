@@ -1,5 +1,5 @@
 {
-  "checksum": "b52a5a26a5a49d3597bc6fbf581942203fee743b089d44e3e876f6e72dc6546e",
+  "checksum": "9c140cbd0281bb4ce4c9a422af18afdd9a5f367d8b996befc3fd3f3f567fd37f",
   "crates": {
     "access-json 0.1.0": {
       "name": "access-json",
@@ -614,9 +614,12 @@
       "name": "apollo-router",
       "version": "1.4.0",
       "repository": {
-        "Http": {
-          "url": "https://crates.io/api/v1/crates/apollo-router/1.4.0/download",
-          "sha256": "e9357a478eb4f030a5f5af9c23609815cea162d7453d0a0d728991ed7c871bb0"
+        "Git": {
+          "remote": "https://github.com/apollographql/router",
+          "commitish": {
+            "Branch": "bryn/otel-upgrade"
+          },
+          "strip_prefix": "apollo-router"
         }
       },
       "targets": [
@@ -724,8 +727,8 @@
               "target": "dashmap"
             },
             {
-              "id": "deadpool 0.9.5",
-              "target": "deadpool"
+              "id": "diff 0.1.13",
+              "target": "diff"
             },
             {
               "id": "directories 4.0.1",
@@ -780,6 +783,10 @@
               "target": "itertools"
             },
             {
+              "id": "jsonpath_lib 0.3.0",
+              "target": "jsonpath_lib"
+            },
+            {
               "id": "jsonschema 0.16.1",
               "target": "jsonschema"
             },
@@ -824,35 +831,35 @@
               "target": "once_cell"
             },
             {
-              "id": "opentelemetry 0.17.0",
+              "id": "opentelemetry 0.18.0",
               "target": "opentelemetry"
             },
             {
-              "id": "opentelemetry-datadog 0.5.0",
+              "id": "opentelemetry-datadog 0.6.0",
               "target": "opentelemetry_datadog"
             },
             {
-              "id": "opentelemetry-http 0.6.0",
+              "id": "opentelemetry-http 0.7.0",
               "target": "opentelemetry_http"
             },
             {
-              "id": "opentelemetry-jaeger 0.16.0",
+              "id": "opentelemetry-jaeger 0.17.0",
               "target": "opentelemetry_jaeger"
             },
             {
-              "id": "opentelemetry-otlp 0.10.0",
+              "id": "opentelemetry-otlp 0.11.0",
               "target": "opentelemetry_otlp"
             },
             {
-              "id": "opentelemetry-prometheus 0.10.0",
+              "id": "opentelemetry-prometheus 0.11.0",
               "target": "opentelemetry_prometheus"
             },
             {
-              "id": "opentelemetry-semantic-conventions 0.9.0",
+              "id": "opentelemetry-semantic-conventions 0.10.0",
               "target": "opentelemetry_semantic_conventions"
             },
             {
-              "id": "opentelemetry-zipkin 0.15.0",
+              "id": "opentelemetry-zipkin 0.16.0",
               "target": "opentelemetry_zipkin"
             },
             {
@@ -864,12 +871,16 @@
               "target": "prometheus"
             },
             {
-              "id": "prost 0.9.0",
+              "id": "prost 0.11.2",
               "target": "prost"
             },
             {
-              "id": "prost-types 0.9.0",
+              "id": "prost-types 0.11.2",
               "target": "prost_types"
+            },
+            {
+              "id": "proteus 0.5.0",
+              "target": "proteus"
             },
             {
               "id": "rand 0.8.5",
@@ -890,6 +901,10 @@
             {
               "id": "router-bridge 0.1.11",
               "target": "router_bridge"
+            },
+            {
+              "id": "rust-embed 6.4.2",
+              "target": "rust_embed"
             },
             {
               "id": "schemars 0.8.11",
@@ -948,7 +963,7 @@
               "target": "tokio_util"
             },
             {
-              "id": "tonic 0.6.2",
+              "id": "tonic 0.8.2",
               "target": "tonic"
             },
             {
@@ -964,11 +979,11 @@
               "target": "tower_service"
             },
             {
-              "id": "tracing 0.1.34",
+              "id": "tracing 0.1.37",
               "target": "tracing"
             },
             {
-              "id": "tracing-core 0.1.26",
+              "id": "tracing-core 0.1.30",
               "target": "tracing_core"
             },
             {
@@ -976,11 +991,11 @@
               "target": "tracing_futures"
             },
             {
-              "id": "tracing-opentelemetry 0.17.4",
+              "id": "tracing-opentelemetry 0.18.0",
               "target": "tracing_opentelemetry"
             },
             {
-              "id": "tracing-subscriber 0.3.11",
+              "id": "tracing-subscriber 0.3.16",
               "target": "tracing_subscriber"
             },
             {
@@ -1052,16 +1067,28 @@
         "version": "1.4.0"
       },
       "build_script_attrs": {
+        "data": {
+          "common": [
+            "@com_google_protobuf//:protoc"
+          ],
+          "selects": {}
+        },
         "data_glob": [
           "**"
         ],
         "deps": {
           "common": [
             {
-              "id": "tonic-build 0.6.2",
+              "id": "tonic-build 0.8.2",
               "target": "tonic_build"
             }
           ],
+          "selects": {}
+        },
+        "build_script_env": {
+          "common": {
+            "PROTOC": "$(execpath @com_google_protobuf//:protoc)"
+          },
           "selects": {}
         }
       },
@@ -4358,55 +4385,6 @@
       },
       "license": "Apache-2.0 OR MIT"
     },
-    "dashmap 4.0.2": {
-      "name": "dashmap",
-      "version": "4.0.2",
-      "repository": {
-        "Http": {
-          "url": "https://crates.io/api/v1/crates/dashmap/4.0.2/download",
-          "sha256": "e77a43b28d0668df09411cb0bc9a8c2adc40f9a048afe863e05fd43251e8e39c"
-        }
-      },
-      "targets": [
-        {
-          "Library": {
-            "crate_name": "dashmap",
-            "crate_root": "src/lib.rs",
-            "srcs": {
-              "include": [
-                "**/*.rs"
-              ],
-              "exclude": []
-            }
-          }
-        }
-      ],
-      "library_target_name": "dashmap",
-      "common_attrs": {
-        "compile_data_glob": [
-          "**"
-        ],
-        "crate_features": [
-          "default"
-        ],
-        "deps": {
-          "common": [
-            {
-              "id": "cfg-if 1.0.0",
-              "target": "cfg_if"
-            },
-            {
-              "id": "num_cpus 1.14.0",
-              "target": "num_cpus"
-            }
-          ],
-          "selects": {}
-        },
-        "edition": "2018",
-        "version": "4.0.2"
-      },
-      "license": "MIT"
-    },
     "dashmap 5.4.0": {
       "name": "dashmap",
       "version": "5.4.0",
@@ -4471,122 +4449,6 @@
         "version": "5.4.0"
       },
       "license": "MIT"
-    },
-    "deadpool 0.9.5": {
-      "name": "deadpool",
-      "version": "0.9.5",
-      "repository": {
-        "Http": {
-          "url": "https://crates.io/api/v1/crates/deadpool/0.9.5/download",
-          "sha256": "421fe0f90f2ab22016f32a9881be5134fdd71c65298917084b0c7477cbc3856e"
-        }
-      },
-      "targets": [
-        {
-          "Library": {
-            "crate_name": "deadpool",
-            "crate_root": "src/lib.rs",
-            "srcs": {
-              "include": [
-                "**/*.rs"
-              ],
-              "exclude": []
-            }
-          }
-        }
-      ],
-      "library_target_name": "deadpool",
-      "common_attrs": {
-        "compile_data_glob": [
-          "**"
-        ],
-        "crate_features": [
-          "async-trait",
-          "default",
-          "managed",
-          "rt_tokio_1",
-          "unmanaged"
-        ],
-        "deps": {
-          "common": [
-            {
-              "id": "deadpool-runtime 0.1.2",
-              "target": "deadpool_runtime"
-            },
-            {
-              "id": "num_cpus 1.14.0",
-              "target": "num_cpus"
-            },
-            {
-              "id": "retain_mut 0.1.9",
-              "target": "retain_mut"
-            },
-            {
-              "id": "tokio 1.22.0",
-              "target": "tokio"
-            }
-          ],
-          "selects": {}
-        },
-        "edition": "2018",
-        "proc_macro_deps": {
-          "common": [
-            {
-              "id": "async-trait 0.1.58",
-              "target": "async_trait"
-            }
-          ],
-          "selects": {}
-        },
-        "version": "0.9.5"
-      },
-      "license": "MIT/Apache-2.0"
-    },
-    "deadpool-runtime 0.1.2": {
-      "name": "deadpool-runtime",
-      "version": "0.1.2",
-      "repository": {
-        "Http": {
-          "url": "https://crates.io/api/v1/crates/deadpool-runtime/0.1.2/download",
-          "sha256": "eaa37046cc0f6c3cc6090fbdbf73ef0b8ef4cfcc37f6befc0020f63e8cf121e1"
-        }
-      },
-      "targets": [
-        {
-          "Library": {
-            "crate_name": "deadpool_runtime",
-            "crate_root": "src/lib.rs",
-            "srcs": {
-              "include": [
-                "**/*.rs"
-              ],
-              "exclude": []
-            }
-          }
-        }
-      ],
-      "library_target_name": "deadpool_runtime",
-      "common_attrs": {
-        "compile_data_glob": [
-          "**"
-        ],
-        "crate_features": [
-          "tokio_1"
-        ],
-        "deps": {
-          "common": [
-            {
-              "id": "tokio 1.22.0",
-              "target": "tokio",
-              "alias": "tokio_1"
-            }
-          ],
-          "selects": {}
-        },
-        "edition": "2018",
-        "version": "0.1.2"
-      },
-      "license": "MIT/Apache-2.0"
     },
     "deno_core 0.142.0": {
       "name": "deno_core",
@@ -4934,6 +4796,39 @@
         "version": "0.6.2"
       },
       "license": "MIT"
+    },
+    "diff 0.1.13": {
+      "name": "diff",
+      "version": "0.1.13",
+      "repository": {
+        "Http": {
+          "url": "https://crates.io/api/v1/crates/diff/0.1.13/download",
+          "sha256": "56254986775e3233ffa9c4d7d3faaf6d36a2c09d30b20687e9f88bc8bafc16c8"
+        }
+      },
+      "targets": [
+        {
+          "Library": {
+            "crate_name": "diff",
+            "crate_root": "src/lib.rs",
+            "srcs": {
+              "include": [
+                "**/*.rs"
+              ],
+              "exclude": []
+            }
+          }
+        }
+      ],
+      "library_target_name": "diff",
+      "common_attrs": {
+        "compile_data_glob": [
+          "**"
+        ],
+        "edition": "2015",
+        "version": "0.1.13"
+      },
+      "license": "MIT OR Apache-2.0"
     },
     "difflib 0.4.0": {
       "name": "difflib",
@@ -6749,6 +6644,56 @@
       },
       "license": "MIT OR Apache-2.0"
     },
+    "ghost 0.1.6": {
+      "name": "ghost",
+      "version": "0.1.6",
+      "repository": {
+        "Http": {
+          "url": "https://crates.io/api/v1/crates/ghost/0.1.6/download",
+          "sha256": "eb19fe8de3ea0920d282f7b77dd4227aea6b8b999b42cdf0ca41b2472b14443a"
+        }
+      },
+      "targets": [
+        {
+          "ProcMacro": {
+            "crate_name": "ghost",
+            "crate_root": "src/lib.rs",
+            "srcs": {
+              "include": [
+                "**/*.rs"
+              ],
+              "exclude": []
+            }
+          }
+        }
+      ],
+      "library_target_name": "ghost",
+      "common_attrs": {
+        "compile_data_glob": [
+          "**"
+        ],
+        "deps": {
+          "common": [
+            {
+              "id": "proc-macro2 1.0.47",
+              "target": "proc_macro2"
+            },
+            {
+              "id": "quote 1.0.21",
+              "target": "quote"
+            },
+            {
+              "id": "syn 1.0.103",
+              "target": "syn"
+            }
+          ],
+          "selects": {}
+        },
+        "edition": "2018",
+        "version": "0.1.6"
+      },
+      "license": "MIT OR Apache-2.0"
+    },
     "gimli 0.26.2": {
       "name": "gimli",
       "version": "0.26.2",
@@ -7267,7 +7212,7 @@
               "target": "tokio_util"
             },
             {
-              "id": "tracing 0.1.34",
+              "id": "tracing 0.1.37",
               "target": "tracing"
             }
           ],
@@ -8168,7 +8113,7 @@
               "target": "tower_service"
             },
             {
-              "id": "tracing 0.1.34",
+              "id": "tracing 0.1.37",
               "target": "tracing"
             },
             {
@@ -8698,6 +8643,52 @@
       },
       "license": "MIT"
     },
+    "inventory 0.2.3": {
+      "name": "inventory",
+      "version": "0.2.3",
+      "repository": {
+        "Http": {
+          "url": "https://crates.io/api/v1/crates/inventory/0.2.3/download",
+          "sha256": "84344c6e0b90a9e2b6f3f9abe5cc74402684e348df7b32adca28747e0cef091a"
+        }
+      },
+      "targets": [
+        {
+          "Library": {
+            "crate_name": "inventory",
+            "crate_root": "src/lib.rs",
+            "srcs": {
+              "include": [
+                "**/*.rs"
+              ],
+              "exclude": []
+            }
+          }
+        }
+      ],
+      "library_target_name": "inventory",
+      "common_attrs": {
+        "compile_data_glob": [
+          "**"
+        ],
+        "edition": "2018",
+        "proc_macro_deps": {
+          "common": [
+            {
+              "id": "ctor 0.1.26",
+              "target": "ctor"
+            },
+            {
+              "id": "ghost 0.1.6",
+              "target": "ghost"
+            }
+          ],
+          "selects": {}
+        },
+        "version": "0.2.3"
+      },
+      "license": "MIT OR Apache-2.0"
+    },
     "ipnet 2.5.1": {
       "name": "ipnet",
       "version": "2.5.1",
@@ -8978,6 +8969,56 @@
         "version": "0.3.60"
       },
       "license": "MIT/Apache-2.0"
+    },
+    "jsonpath_lib 0.3.0": {
+      "name": "jsonpath_lib",
+      "version": "0.3.0",
+      "repository": {
+        "Http": {
+          "url": "https://crates.io/api/v1/crates/jsonpath_lib/0.3.0/download",
+          "sha256": "eaa63191d68230cccb81c5aa23abd53ed64d83337cacbb25a7b8c7979523774f"
+        }
+      },
+      "targets": [
+        {
+          "Library": {
+            "crate_name": "jsonpath_lib",
+            "crate_root": "src/lib.rs",
+            "srcs": {
+              "include": [
+                "**/*.rs"
+              ],
+              "exclude": []
+            }
+          }
+        }
+      ],
+      "library_target_name": "jsonpath_lib",
+      "common_attrs": {
+        "compile_data_glob": [
+          "**"
+        ],
+        "deps": {
+          "common": [
+            {
+              "id": "log 0.4.17",
+              "target": "log"
+            },
+            {
+              "id": "serde 1.0.147",
+              "target": "serde"
+            },
+            {
+              "id": "serde_json 1.0.89",
+              "target": "serde_json"
+            }
+          ],
+          "selects": {}
+        },
+        "edition": "2015",
+        "version": "0.3.0"
+      },
+      "license": "MIT"
     },
     "jsonschema 0.16.1": {
       "name": "jsonschema",
@@ -10913,6 +10954,55 @@
       },
       "license": "CC0-1.0 OR Artistic-2.0"
     },
+    "nu-ansi-term 0.46.0": {
+      "name": "nu-ansi-term",
+      "version": "0.46.0",
+      "repository": {
+        "Http": {
+          "url": "https://crates.io/api/v1/crates/nu-ansi-term/0.46.0/download",
+          "sha256": "77a8165726e8236064dbb45459242600304b42a5ea24ee2948e18e023bf7ba84"
+        }
+      },
+      "targets": [
+        {
+          "Library": {
+            "crate_name": "nu_ansi_term",
+            "crate_root": "src/lib.rs",
+            "srcs": {
+              "include": [
+                "**/*.rs"
+              ],
+              "exclude": []
+            }
+          }
+        }
+      ],
+      "library_target_name": "nu_ansi_term",
+      "common_attrs": {
+        "compile_data_glob": [
+          "**"
+        ],
+        "deps": {
+          "common": [
+            {
+              "id": "overload 0.1.1",
+              "target": "overload"
+            }
+          ],
+          "selects": {
+            "cfg(target_os = \"windows\")": [
+              {
+                "id": "winapi 0.3.9",
+                "target": "winapi"
+              }
+            ]
+          }
+        },
+        "edition": "2018",
+        "version": "0.46.0"
+      },
+      "license": "MIT"
+    },
     "num 0.4.0": {
       "name": "num",
       "version": "0.4.0",
@@ -11749,13 +11839,13 @@
       },
       "license": "MIT"
     },
-    "opentelemetry 0.17.0": {
+    "opentelemetry 0.18.0": {
       "name": "opentelemetry",
-      "version": "0.17.0",
+      "version": "0.18.0",
       "repository": {
         "Http": {
-          "url": "https://crates.io/api/v1/crates/opentelemetry/0.17.0/download",
-          "sha256": "6105e89802af13fdf48c49d7646d3b533a70e536d818aae7e78ba0433d01acb8"
+          "url": "https://crates.io/api/v1/crates/opentelemetry/0.18.0/download",
+          "sha256": "69d6c3d7288a106c0a363e4b0e8d308058d56902adefb16f4936f417ffef086e"
         }
       },
       "targets": [
@@ -11778,111 +11868,36 @@
           "**"
         ],
         "crate_features": [
-          "async-trait",
-          "crossbeam-channel",
-          "dashmap",
           "default",
-          "fnv",
           "metrics",
-          "percent-encoding",
-          "pin-project",
-          "rand",
           "rt-tokio",
-          "serde",
-          "serialize",
-          "tokio",
-          "tokio-stream",
           "trace"
         ],
         "deps": {
           "common": [
             {
-              "id": "crossbeam-channel 0.5.6",
-              "target": "crossbeam_channel"
+              "id": "opentelemetry_api 0.18.0",
+              "target": "opentelemetry_api"
             },
             {
-              "id": "dashmap 4.0.2",
-              "target": "dashmap"
-            },
-            {
-              "id": "fnv 1.0.7",
-              "target": "fnv"
-            },
-            {
-              "id": "futures-channel 0.3.25",
-              "target": "futures_channel"
-            },
-            {
-              "id": "futures-executor 0.3.25",
-              "target": "futures_executor"
-            },
-            {
-              "id": "futures-util 0.3.25",
-              "target": "futures_util"
-            },
-            {
-              "id": "lazy_static 1.4.0",
-              "target": "lazy_static"
-            },
-            {
-              "id": "percent-encoding 2.2.0",
-              "target": "percent_encoding"
-            },
-            {
-              "id": "pin-project 1.0.12",
-              "target": "pin_project"
-            },
-            {
-              "id": "rand 0.8.5",
-              "target": "rand"
-            },
-            {
-              "id": "serde 1.0.147",
-              "target": "serde"
-            },
-            {
-              "id": "thiserror 1.0.37",
-              "target": "thiserror"
-            },
-            {
-              "id": "tokio 1.22.0",
-              "target": "tokio"
-            },
-            {
-              "id": "tokio-stream 0.1.11",
-              "target": "tokio_stream"
-            }
-          ],
-          "selects": {
-            "cfg(target_arch = \"wasm32\")": [
-              {
-                "id": "js-sys 0.3.60",
-                "target": "js_sys"
-              }
-            ]
-          }
-        },
-        "edition": "2018",
-        "proc_macro_deps": {
-          "common": [
-            {
-              "id": "async-trait 0.1.58",
-              "target": "async_trait"
+              "id": "opentelemetry_sdk 0.18.0",
+              "target": "opentelemetry_sdk"
             }
           ],
           "selects": {}
         },
-        "version": "0.17.0"
+        "edition": "2021",
+        "version": "0.18.0"
       },
       "license": "Apache-2.0"
     },
-    "opentelemetry-datadog 0.5.0": {
+    "opentelemetry-datadog 0.6.0": {
       "name": "opentelemetry-datadog",
-      "version": "0.5.0",
+      "version": "0.6.0",
       "repository": {
         "Http": {
-          "url": "https://crates.io/api/v1/crates/opentelemetry-datadog/0.5.0/download",
-          "sha256": "457462dc4cd365992c574c79181ff11ee6f66c5cbfb15a352217b4e0b35eac34"
+          "url": "https://crates.io/api/v1/crates/opentelemetry-datadog/0.6.0/download",
+          "sha256": "171770efa142d2a19455b7e985037f560b2e75461f822dd1688bfd83c14856f6"
         }
       },
       "targets": [
@@ -11911,6 +11926,10 @@
         "deps": {
           "common": [
             {
+              "id": "futures-core 0.3.25",
+              "target": "futures_core"
+            },
+            {
               "id": "http 0.2.8",
               "target": "http"
             },
@@ -11923,19 +11942,19 @@
               "target": "itertools"
             },
             {
-              "id": "lazy_static 1.4.0",
-              "target": "lazy_static"
+              "id": "once_cell 1.16.0",
+              "target": "once_cell"
             },
             {
-              "id": "opentelemetry 0.17.0",
+              "id": "opentelemetry 0.18.0",
               "target": "opentelemetry"
             },
             {
-              "id": "opentelemetry-http 0.6.0",
+              "id": "opentelemetry-http 0.7.0",
               "target": "opentelemetry_http"
             },
             {
-              "id": "opentelemetry-semantic-conventions 0.9.0",
+              "id": "opentelemetry-semantic-conventions 0.10.0",
               "target": "opentelemetry_semantic_conventions"
             },
             {
@@ -11949,11 +11968,15 @@
             {
               "id": "thiserror 1.0.37",
               "target": "thiserror"
+            },
+            {
+              "id": "url 2.3.1",
+              "target": "url"
             }
           ],
           "selects": {}
         },
-        "edition": "2018",
+        "edition": "2021",
         "proc_macro_deps": {
           "common": [
             {
@@ -11963,17 +11986,17 @@
           ],
           "selects": {}
         },
-        "version": "0.5.0"
+        "version": "0.6.0"
       },
       "license": "Apache-2.0"
     },
-    "opentelemetry-http 0.6.0": {
+    "opentelemetry-http 0.7.0": {
       "name": "opentelemetry-http",
-      "version": "0.6.0",
+      "version": "0.7.0",
       "repository": {
         "Http": {
-          "url": "https://crates.io/api/v1/crates/opentelemetry-http/0.6.0/download",
-          "sha256": "449048140ee61e28f57abe6e9975eedc1f3a29855c7407bd6c12b18578863379"
+          "url": "https://crates.io/api/v1/crates/opentelemetry-http/0.7.0/download",
+          "sha256": "1edc79add46364183ece1a4542592ca593e6421c60807232f5b8f7a31703825d"
         }
       },
       "targets": [
@@ -12009,8 +12032,8 @@
               "target": "http"
             },
             {
-              "id": "opentelemetry 0.17.0",
-              "target": "opentelemetry"
+              "id": "opentelemetry_api 0.18.0",
+              "target": "opentelemetry_api"
             },
             {
               "id": "reqwest 0.11.13",
@@ -12019,7 +12042,7 @@
           ],
           "selects": {}
         },
-        "edition": "2018",
+        "edition": "2021",
         "proc_macro_deps": {
           "common": [
             {
@@ -12029,17 +12052,17 @@
           ],
           "selects": {}
         },
-        "version": "0.6.0"
+        "version": "0.7.0"
       },
       "license": "Apache-2.0"
     },
-    "opentelemetry-jaeger 0.16.0": {
+    "opentelemetry-jaeger 0.17.0": {
       "name": "opentelemetry-jaeger",
-      "version": "0.16.0",
+      "version": "0.17.0",
       "repository": {
         "Http": {
-          "url": "https://crates.io/api/v1/crates/opentelemetry-jaeger/0.16.0/download",
-          "sha256": "f8c0b12cd9e3f9b35b52f6e0dac66866c519b26f424f4bbf96e3fe8bfbdc5229"
+          "url": "https://crates.io/api/v1/crates/opentelemetry-jaeger/0.17.0/download",
+          "sha256": "1e785d273968748578931e4dc3b4f5ec86b26e09d9e0d66b55adda7fce742f7a"
         }
       },
       "targets": [
@@ -12075,6 +12098,14 @@
         "deps": {
           "common": [
             {
+              "id": "futures 0.3.25",
+              "target": "futures"
+            },
+            {
+              "id": "futures-executor 0.3.25",
+              "target": "futures_executor"
+            },
+            {
               "id": "headers 0.3.8",
               "target": "headers"
             },
@@ -12083,19 +12114,19 @@
               "target": "http"
             },
             {
-              "id": "lazy_static 1.4.0",
-              "target": "lazy_static"
+              "id": "once_cell 1.16.0",
+              "target": "once_cell"
             },
             {
-              "id": "opentelemetry 0.17.0",
+              "id": "opentelemetry 0.18.0",
               "target": "opentelemetry"
             },
             {
-              "id": "opentelemetry-http 0.6.0",
+              "id": "opentelemetry-http 0.7.0",
               "target": "opentelemetry_http"
             },
             {
-              "id": "opentelemetry-semantic-conventions 0.9.0",
+              "id": "opentelemetry-semantic-conventions 0.10.0",
               "target": "opentelemetry_semantic_conventions"
             },
             {
@@ -12107,7 +12138,7 @@
               "target": "thiserror"
             },
             {
-              "id": "thrift 0.15.0",
+              "id": "thrift 0.16.0",
               "target": "thrift"
             },
             {
@@ -12117,7 +12148,7 @@
           ],
           "selects": {}
         },
-        "edition": "2018",
+        "edition": "2021",
         "proc_macro_deps": {
           "common": [
             {
@@ -12127,17 +12158,17 @@
           ],
           "selects": {}
         },
-        "version": "0.16.0"
+        "version": "0.17.0"
       },
       "license": "Apache-2.0"
     },
-    "opentelemetry-otlp 0.10.0": {
+    "opentelemetry-otlp 0.11.0": {
       "name": "opentelemetry-otlp",
-      "version": "0.10.0",
+      "version": "0.11.0",
       "repository": {
         "Http": {
-          "url": "https://crates.io/api/v1/crates/opentelemetry-otlp/0.10.0/download",
-          "sha256": "9d1a6ca9de4c8b00aa7f1a153bd76cb263287155cec642680d79d98706f3d28a"
+          "url": "https://crates.io/api/v1/crates/opentelemetry-otlp/0.11.0/download",
+          "sha256": "d1c928609d087790fc936a1067bdc310ae702bdf3b090c3f281b713622c8bbde"
         }
       },
       "targets": [
@@ -12145,18 +12176,6 @@
           "Library": {
             "crate_name": "opentelemetry_otlp",
             "crate_root": "src/lib.rs",
-            "srcs": {
-              "include": [
-                "**/*.rs"
-              ],
-              "exclude": []
-            }
-          }
-        },
-        {
-          "BuildScript": {
-            "crate_name": "build_script_build",
-            "crate_root": "build.rs",
             "srcs": {
               "include": [
                 "**/*.rs"
@@ -12172,18 +12191,18 @@
           "**"
         ],
         "crate_features": [
-          "default",
+          "grpc-tonic",
+          "http",
           "http-proto",
           "metrics",
           "opentelemetry-http",
           "prost",
-          "prost-build",
           "reqwest",
           "reqwest-client",
           "tls",
           "tokio",
           "tonic",
-          "tonic-build"
+          "trace"
         ],
         "deps": {
           "common": [
@@ -12200,19 +12219,19 @@
               "target": "http"
             },
             {
-              "id": "opentelemetry 0.17.0",
+              "id": "opentelemetry 0.18.0",
               "target": "opentelemetry"
             },
             {
-              "id": "opentelemetry-http 0.6.0",
+              "id": "opentelemetry-http 0.7.0",
               "target": "opentelemetry_http"
             },
             {
-              "id": "opentelemetry-otlp 0.10.0",
-              "target": "build_script_build"
+              "id": "opentelemetry-proto 0.1.0",
+              "target": "opentelemetry_proto"
             },
             {
-              "id": "prost 0.9.0",
+              "id": "prost 0.11.2",
               "target": "prost"
             },
             {
@@ -12228,13 +12247,13 @@
               "target": "tokio"
             },
             {
-              "id": "tonic 0.6.2",
+              "id": "tonic 0.8.2",
               "target": "tonic"
             }
           ],
           "selects": {}
         },
-        "edition": "2018",
+        "edition": "2021",
         "proc_macro_deps": {
           "common": [
             {
@@ -12244,35 +12263,17 @@
           ],
           "selects": {}
         },
-        "version": "0.10.0"
-      },
-      "build_script_attrs": {
-        "data_glob": [
-          "**"
-        ],
-        "deps": {
-          "common": [
-            {
-              "id": "prost-build 0.9.0",
-              "target": "prost_build"
-            },
-            {
-              "id": "tonic-build 0.6.2",
-              "target": "tonic_build"
-            }
-          ],
-          "selects": {}
-        }
+        "version": "0.11.0"
       },
       "license": "Apache-2.0"
     },
-    "opentelemetry-prometheus 0.10.0": {
+    "opentelemetry-prometheus 0.11.0": {
       "name": "opentelemetry-prometheus",
-      "version": "0.10.0",
+      "version": "0.11.0",
       "repository": {
         "Http": {
-          "url": "https://crates.io/api/v1/crates/opentelemetry-prometheus/0.10.0/download",
-          "sha256": "9328977e479cebe12ce0d3fcecdaea4721d234895a9440c5b5dfd113f0594ac6"
+          "url": "https://crates.io/api/v1/crates/opentelemetry-prometheus/0.11.0/download",
+          "sha256": "06c3d833835a53cf91331d2cfb27e9121f5a95261f31f08a1f79ab31688b8da8"
         }
       },
       "targets": [
@@ -12297,7 +12298,7 @@
         "deps": {
           "common": [
             {
-              "id": "opentelemetry 0.17.0",
+              "id": "opentelemetry 0.18.0",
               "target": "opentelemetry"
             },
             {
@@ -12311,18 +12312,127 @@
           ],
           "selects": {}
         },
-        "edition": "2018",
-        "version": "0.10.0"
+        "edition": "2021",
+        "version": "0.11.0"
       },
       "license": "Apache-2.0"
     },
-    "opentelemetry-semantic-conventions 0.9.0": {
-      "name": "opentelemetry-semantic-conventions",
-      "version": "0.9.0",
+    "opentelemetry-proto 0.1.0": {
+      "name": "opentelemetry-proto",
+      "version": "0.1.0",
       "repository": {
         "Http": {
-          "url": "https://crates.io/api/v1/crates/opentelemetry-semantic-conventions/0.9.0/download",
-          "sha256": "985cc35d832d412224b2cffe2f9194b1b89b6aa5d0bef76d080dce09d90e62bd"
+          "url": "https://crates.io/api/v1/crates/opentelemetry-proto/0.1.0/download",
+          "sha256": "d61a2f56df5574508dd86aaca016c917489e589ece4141df1b5e349af8d66c28"
+        }
+      },
+      "targets": [
+        {
+          "Library": {
+            "crate_name": "opentelemetry_proto",
+            "crate_root": "src/lib.rs",
+            "srcs": {
+              "include": [
+                "**/*.rs"
+              ],
+              "exclude": []
+            }
+          }
+        },
+        {
+          "BuildScript": {
+            "crate_name": "build_script_build",
+            "crate_root": "build.rs",
+            "srcs": {
+              "include": [
+                "**/*.rs"
+              ],
+              "exclude": []
+            }
+          }
+        }
+      ],
+      "library_target_name": "opentelemetry_proto",
+      "common_attrs": {
+        "compile_data_glob": [
+          "**"
+        ],
+        "crate_features": [
+          "build-client",
+          "gen-tonic",
+          "metrics",
+          "prost",
+          "tonic",
+          "tonic-build",
+          "traces"
+        ],
+        "deps": {
+          "common": [
+            {
+              "id": "futures 0.3.25",
+              "target": "futures"
+            },
+            {
+              "id": "futures-util 0.3.25",
+              "target": "futures_util"
+            },
+            {
+              "id": "opentelemetry 0.18.0",
+              "target": "opentelemetry"
+            },
+            {
+              "id": "opentelemetry-proto 0.1.0",
+              "target": "build_script_build"
+            },
+            {
+              "id": "prost 0.11.2",
+              "target": "prost"
+            },
+            {
+              "id": "tonic 0.8.2",
+              "target": "tonic"
+            }
+          ],
+          "selects": {}
+        },
+        "edition": "2021",
+        "version": "0.1.0"
+      },
+      "build_script_attrs": {
+        "data": {
+          "common": [
+            "@com_google_protobuf//:protoc"
+          ],
+          "selects": {}
+        },
+        "data_glob": [
+          "**"
+        ],
+        "deps": {
+          "common": [
+            {
+              "id": "tonic-build 0.8.2",
+              "target": "tonic_build"
+            }
+          ],
+          "selects": {}
+        },
+        "build_script_env": {
+          "common": {
+            "PROTOC": "$(execpath @com_google_protobuf//:protoc)"
+          },
+          "selects": {}
+        }
+      },
+      "license": "Apache-2.0"
+    },
+    "opentelemetry-semantic-conventions 0.10.0": {
+      "name": "opentelemetry-semantic-conventions",
+      "version": "0.10.0",
+      "repository": {
+        "Http": {
+          "url": "https://crates.io/api/v1/crates/opentelemetry-semantic-conventions/0.10.0/download",
+          "sha256": "9b02e0230abb0ab6636d18e2ba8fa02903ea63772281340ccac18e0af3ec9eeb"
         }
       },
       "targets": [
@@ -12347,24 +12457,24 @@
         "deps": {
           "common": [
             {
-              "id": "opentelemetry 0.17.0",
+              "id": "opentelemetry 0.18.0",
               "target": "opentelemetry"
             }
           ],
           "selects": {}
         },
-        "edition": "2018",
-        "version": "0.9.0"
+        "edition": "2021",
+        "version": "0.10.0"
       },
       "license": "Apache-2.0"
     },
-    "opentelemetry-zipkin 0.15.0": {
+    "opentelemetry-zipkin 0.16.0": {
       "name": "opentelemetry-zipkin",
-      "version": "0.15.0",
+      "version": "0.16.0",
       "repository": {
         "Http": {
-          "url": "https://crates.io/api/v1/crates/opentelemetry-zipkin/0.15.0/download",
-          "sha256": "fb86c6e02de97a3a7ffa5d267e1ff3f0c930ccf8a31e286277a209af6ed6cfc1"
+          "url": "https://crates.io/api/v1/crates/opentelemetry-zipkin/0.16.0/download",
+          "sha256": "9bd6a5d672fe50f682d801f6737a54a633834cf8c91be419c0c9cae8ac85bf4d"
         }
       },
       "targets": [
@@ -12395,23 +12505,27 @@
         "deps": {
           "common": [
             {
+              "id": "futures-core 0.3.25",
+              "target": "futures_core"
+            },
+            {
               "id": "http 0.2.8",
               "target": "http"
             },
             {
-              "id": "lazy_static 1.4.0",
-              "target": "lazy_static"
+              "id": "once_cell 1.16.0",
+              "target": "once_cell"
             },
             {
-              "id": "opentelemetry 0.17.0",
+              "id": "opentelemetry 0.18.0",
               "target": "opentelemetry"
             },
             {
-              "id": "opentelemetry-http 0.6.0",
+              "id": "opentelemetry-http 0.7.0",
               "target": "opentelemetry_http"
             },
             {
-              "id": "opentelemetry-semantic-conventions 0.9.0",
+              "id": "opentelemetry-semantic-conventions 0.10.0",
               "target": "opentelemetry_semantic_conventions"
             },
             {
@@ -12433,7 +12547,7 @@
           ],
           "selects": {}
         },
-        "edition": "2018",
+        "edition": "2021",
         "proc_macro_deps": {
           "common": [
             {
@@ -12447,7 +12561,200 @@
           ],
           "selects": {}
         },
-        "version": "0.15.0"
+        "version": "0.16.0"
+      },
+      "license": "Apache-2.0"
+    },
+    "opentelemetry_api 0.18.0": {
+      "name": "opentelemetry_api",
+      "version": "0.18.0",
+      "repository": {
+        "Http": {
+          "url": "https://crates.io/api/v1/crates/opentelemetry_api/0.18.0/download",
+          "sha256": "c24f96e21e7acc813c7a8394ee94978929db2bcc46cf6b5014fc612bf7760c22"
+        }
+      },
+      "targets": [
+        {
+          "Library": {
+            "crate_name": "opentelemetry_api",
+            "crate_root": "src/lib.rs",
+            "srcs": {
+              "include": [
+                "**/*.rs"
+              ],
+              "exclude": []
+            }
+          }
+        }
+      ],
+      "library_target_name": "opentelemetry_api",
+      "common_attrs": {
+        "compile_data_glob": [
+          "**"
+        ],
+        "crate_features": [
+          "default",
+          "fnv",
+          "metrics",
+          "pin-project-lite",
+          "trace"
+        ],
+        "deps": {
+          "common": [
+            {
+              "id": "fnv 1.0.7",
+              "target": "fnv"
+            },
+            {
+              "id": "futures-channel 0.3.25",
+              "target": "futures_channel"
+            },
+            {
+              "id": "futures-util 0.3.25",
+              "target": "futures_util"
+            },
+            {
+              "id": "indexmap 1.9.2",
+              "target": "indexmap"
+            },
+            {
+              "id": "once_cell 1.16.0",
+              "target": "once_cell"
+            },
+            {
+              "id": "pin-project-lite 0.2.9",
+              "target": "pin_project_lite"
+            },
+            {
+              "id": "thiserror 1.0.37",
+              "target": "thiserror"
+            }
+          ],
+          "selects": {
+            "cfg(target_arch = \"wasm32\")": [
+              {
+                "id": "js-sys 0.3.60",
+                "target": "js_sys"
+              }
+            ]
+          }
+        },
+        "edition": "2021",
+        "version": "0.18.0"
+      },
+      "license": "Apache-2.0"
+    },
+    "opentelemetry_sdk 0.18.0": {
+      "name": "opentelemetry_sdk",
+      "version": "0.18.0",
+      "repository": {
+        "Http": {
+          "url": "https://crates.io/api/v1/crates/opentelemetry_sdk/0.18.0/download",
+          "sha256": "1ca41c4933371b61c2a2f214bf16931499af4ec90543604ec828f7a625c09113"
+        }
+      },
+      "targets": [
+        {
+          "Library": {
+            "crate_name": "opentelemetry_sdk",
+            "crate_root": "src/lib.rs",
+            "srcs": {
+              "include": [
+                "**/*.rs"
+              ],
+              "exclude": []
+            }
+          }
+        }
+      ],
+      "library_target_name": "opentelemetry_sdk",
+      "common_attrs": {
+        "compile_data_glob": [
+          "**"
+        ],
+        "crate_features": [
+          "async-trait",
+          "crossbeam-channel",
+          "dashmap",
+          "default",
+          "fnv",
+          "metrics",
+          "percent-encoding",
+          "rand",
+          "rt-tokio",
+          "tokio",
+          "tokio-stream",
+          "trace"
+        ],
+        "deps": {
+          "common": [
+            {
+              "id": "crossbeam-channel 0.5.6",
+              "target": "crossbeam_channel"
+            },
+            {
+              "id": "dashmap 5.4.0",
+              "target": "dashmap"
+            },
+            {
+              "id": "fnv 1.0.7",
+              "target": "fnv"
+            },
+            {
+              "id": "futures-channel 0.3.25",
+              "target": "futures_channel"
+            },
+            {
+              "id": "futures-executor 0.3.25",
+              "target": "futures_executor"
+            },
+            {
+              "id": "futures-util 0.3.25",
+              "target": "futures_util"
+            },
+            {
+              "id": "once_cell 1.16.0",
+              "target": "once_cell"
+            },
+            {
+              "id": "opentelemetry_api 0.18.0",
+              "target": "opentelemetry_api"
+            },
+            {
+              "id": "percent-encoding 2.2.0",
+              "target": "percent_encoding"
+            },
+            {
+              "id": "rand 0.8.5",
+              "target": "rand"
+            },
+            {
+              "id": "thiserror 1.0.37",
+              "target": "thiserror"
+            },
+            {
+              "id": "tokio 1.22.0",
+              "target": "tokio"
+            },
+            {
+              "id": "tokio-stream 0.1.11",
+              "target": "tokio_stream"
+            }
+          ],
+          "selects": {}
+        },
+        "edition": "2021",
+        "proc_macro_deps": {
+          "common": [
+            {
+              "id": "async-trait 0.1.58",
+              "target": "async_trait"
+            }
+          ],
+          "selects": {}
+        },
+        "version": "0.18.0"
       },
       "license": "Apache-2.0"
     },
@@ -12532,6 +12839,39 @@
         "version": "6.4.1"
       },
       "license": "MIT OR Apache-2.0"
+    },
+    "overload 0.1.1": {
+      "name": "overload",
+      "version": "0.1.1",
+      "repository": {
+        "Http": {
+          "url": "https://crates.io/api/v1/crates/overload/0.1.1/download",
+          "sha256": "b15813163c1d831bf4a13c3610c05c0d03b39feb07f7e09fa234dac9b15aaf39"
+        }
+      },
+      "targets": [
+        {
+          "Library": {
+            "crate_name": "overload",
+            "crate_root": "src/lib.rs",
+            "srcs": {
+              "include": [
+                "**/*.rs"
+              ],
+              "exclude": []
+            }
+          }
+        }
+      ],
+      "library_target_name": "overload",
+      "common_attrs": {
+        "compile_data_glob": [
+          "**"
+        ],
+        "edition": "2018",
+        "version": "0.1.1"
+      },
+      "license": "MIT"
     },
     "owo-colors 3.5.0": {
       "name": "owo-colors",
@@ -13401,6 +13741,74 @@
       },
       "license": "MIT OR Apache-2.0"
     },
+    "prettyplease 0.1.21": {
+      "name": "prettyplease",
+      "version": "0.1.21",
+      "repository": {
+        "Http": {
+          "url": "https://crates.io/api/v1/crates/prettyplease/0.1.21/download",
+          "sha256": "c142c0e46b57171fe0c528bee8c5b7569e80f0c17e377cd0e30ea57dbc11bb51"
+        }
+      },
+      "targets": [
+        {
+          "Library": {
+            "crate_name": "prettyplease",
+            "crate_root": "src/lib.rs",
+            "srcs": {
+              "include": [
+                "**/*.rs"
+              ],
+              "exclude": []
+            }
+          }
+        },
+        {
+          "BuildScript": {
+            "crate_name": "build_script_build",
+            "crate_root": "build.rs",
+            "srcs": {
+              "include": [
+                "**/*.rs"
+              ],
+              "exclude": []
+            }
+          }
+        }
+      ],
+      "library_target_name": "prettyplease",
+      "common_attrs": {
+        "compile_data_glob": [
+          "**"
+        ],
+        "deps": {
+          "common": [
+            {
+              "id": "prettyplease 0.1.21",
+              "target": "build_script_build"
+            },
+            {
+              "id": "proc-macro2 1.0.47",
+              "target": "proc_macro2"
+            },
+            {
+              "id": "syn 1.0.103",
+              "target": "syn"
+            }
+          ],
+          "selects": {}
+        },
+        "edition": "2021",
+        "version": "0.1.21"
+      },
+      "build_script_attrs": {
+        "data_glob": [
+          "**"
+        ],
+        "links": "prettyplease01"
+      },
+      "license": "MIT OR Apache-2.0"
+    },
     "proc-macro-crate 1.2.1": {
       "name": "proc-macro-crate",
       "version": "1.2.1",
@@ -13838,13 +14246,13 @@
       },
       "license": "Apache-2.0"
     },
-    "prost 0.9.0": {
+    "prost 0.11.2": {
       "name": "prost",
-      "version": "0.9.0",
+      "version": "0.11.2",
       "repository": {
         "Http": {
-          "url": "https://crates.io/api/v1/crates/prost/0.9.0/download",
-          "sha256": "444879275cb4fd84958b1a1d5420d15e6fcf7c235fe47f053c9c2a80aceb6001"
+          "url": "https://crates.io/api/v1/crates/prost/0.11.2/download",
+          "sha256": "a0841812012b2d4a6145fae9a6af1534873c32aa67fff26bd09f8fa42c83f95a"
         }
       },
       "targets": [
@@ -13880,27 +14288,27 @@
           ],
           "selects": {}
         },
-        "edition": "2018",
+        "edition": "2021",
         "proc_macro_deps": {
           "common": [
             {
-              "id": "prost-derive 0.9.0",
+              "id": "prost-derive 0.11.2",
               "target": "prost_derive"
             }
           ],
           "selects": {}
         },
-        "version": "0.9.0"
+        "version": "0.11.2"
       },
       "license": "Apache-2.0"
     },
-    "prost-build 0.9.0": {
+    "prost-build 0.11.2": {
       "name": "prost-build",
-      "version": "0.9.0",
+      "version": "0.11.2",
       "repository": {
         "Http": {
-          "url": "https://crates.io/api/v1/crates/prost-build/0.9.0/download",
-          "sha256": "62941722fb675d463659e49c4f3fe1fe792ff24fe5bbaa9c08cd3b98a1c354f5"
+          "url": "https://crates.io/api/v1/crates/prost-build/0.11.2/download",
+          "sha256": "1d8b442418ea0822409d9e7d047cbf1e7e9e1760b172bf9982cf29d517c93511"
         }
       },
       "targets": [
@@ -13915,24 +14323,18 @@
               "exclude": []
             }
           }
-        },
-        {
-          "BuildScript": {
-            "crate_name": "build_script_build",
-            "crate_root": "build.rs",
-            "srcs": {
-              "include": [
-                "**/*.rs"
-              ],
-              "exclude": []
-            }
-          }
         }
       ],
       "library_target_name": "prost_build",
       "common_attrs": {
         "compile_data_glob": [
           "**"
+        ],
+        "crate_features": [
+          "default",
+          "format",
+          "prettyplease",
+          "syn"
         ],
         "deps": {
           "common": [
@@ -13941,7 +14343,7 @@
               "target": "bytes"
             },
             {
-              "id": "heck 0.3.3",
+              "id": "heck 0.4.0",
               "target": "heck"
             },
             {
@@ -13965,15 +14367,15 @@
               "target": "petgraph"
             },
             {
-              "id": "prost 0.9.0",
+              "id": "prettyplease 0.1.21",
+              "target": "prettyplease"
+            },
+            {
+              "id": "prost 0.11.2",
               "target": "prost"
             },
             {
-              "id": "prost-build 0.9.0",
-              "target": "build_script_build"
-            },
-            {
-              "id": "prost-types 0.9.0",
+              "id": "prost-types 0.11.2",
               "target": "prost_types"
             },
             {
@@ -13981,38 +14383,32 @@
               "target": "regex"
             },
             {
+              "id": "syn 1.0.103",
+              "target": "syn"
+            },
+            {
               "id": "tempfile 3.3.0",
               "target": "tempfile"
-            }
-          ],
-          "selects": {}
-        },
-        "edition": "2018",
-        "version": "0.9.0"
-      },
-      "build_script_attrs": {
-        "data_glob": [
-          "**"
-        ],
-        "deps": {
-          "common": [
+            },
             {
               "id": "which 4.3.0",
               "target": "which"
             }
           ],
           "selects": {}
-        }
+        },
+        "edition": "2021",
+        "version": "0.11.2"
       },
       "license": "Apache-2.0"
     },
-    "prost-derive 0.9.0": {
+    "prost-derive 0.11.2": {
       "name": "prost-derive",
-      "version": "0.9.0",
+      "version": "0.11.2",
       "repository": {
         "Http": {
-          "url": "https://crates.io/api/v1/crates/prost-derive/0.9.0/download",
-          "sha256": "f9cc1a3263e07e0bf68e96268f37665207b49560d98739662cdfaae215c720fe"
+          "url": "https://crates.io/api/v1/crates/prost-derive/0.11.2/download",
+          "sha256": "164ae68b6587001ca506d3bf7f1000bfa248d0e1217b618108fba4ec1d0cc306"
         }
       },
       "targets": [
@@ -14059,18 +14455,18 @@
           ],
           "selects": {}
         },
-        "edition": "2018",
-        "version": "0.9.0"
+        "edition": "2021",
+        "version": "0.11.2"
       },
       "license": "Apache-2.0"
     },
-    "prost-types 0.9.0": {
+    "prost-types 0.11.2": {
       "name": "prost-types",
-      "version": "0.9.0",
+      "version": "0.11.2",
       "repository": {
         "Http": {
-          "url": "https://crates.io/api/v1/crates/prost-types/0.9.0/download",
-          "sha256": "534b7a0e836e3c482d2693070f982e39e7611da9695d4d1f5a4b186b51faef0a"
+          "url": "https://crates.io/api/v1/crates/prost-types/0.11.2/download",
+          "sha256": "747761bc3dc48f9a34553bf65605cf6cb6288ba219f3450b4275dbd81539551a"
         }
       },
       "targets": [
@@ -14103,16 +14499,78 @@
               "target": "bytes"
             },
             {
-              "id": "prost 0.9.0",
+              "id": "prost 0.11.2",
               "target": "prost"
             }
           ],
           "selects": {}
         },
-        "edition": "2018",
-        "version": "0.9.0"
+        "edition": "2021",
+        "version": "0.11.2"
       },
       "license": "Apache-2.0"
+    },
+    "proteus 0.5.0": {
+      "name": "proteus",
+      "version": "0.5.0",
+      "repository": {
+        "Http": {
+          "url": "https://crates.io/api/v1/crates/proteus/0.5.0/download",
+          "sha256": "279396105537894fdecabfba63493bc93192c94a97951bef640d2feac3cfc362"
+        }
+      },
+      "targets": [
+        {
+          "Library": {
+            "crate_name": "proteus",
+            "crate_root": "src/lib.rs",
+            "srcs": {
+              "include": [
+                "**/*.rs"
+              ],
+              "exclude": []
+            }
+          }
+        }
+      ],
+      "library_target_name": "proteus",
+      "common_attrs": {
+        "compile_data_glob": [
+          "**"
+        ],
+        "deps": {
+          "common": [
+            {
+              "id": "once_cell 1.16.0",
+              "target": "once_cell"
+            },
+            {
+              "id": "regex 1.7.0",
+              "target": "regex"
+            },
+            {
+              "id": "serde 1.0.147",
+              "target": "serde"
+            },
+            {
+              "id": "serde_json 1.0.89",
+              "target": "serde_json"
+            },
+            {
+              "id": "thiserror 1.0.37",
+              "target": "thiserror"
+            },
+            {
+              "id": "typetag 0.1.8",
+              "target": "typetag"
+            }
+          ],
+          "selects": {}
+        },
+        "edition": "2018",
+        "version": "0.5.0"
+      },
+      "license": "MIT OR Apache-2.0"
     },
     "protobuf 2.28.0": {
       "name": "protobuf",
@@ -14894,39 +15352,6 @@
       },
       "license": "MIT/Apache-2.0"
     },
-    "retain_mut 0.1.9": {
-      "name": "retain_mut",
-      "version": "0.1.9",
-      "repository": {
-        "Http": {
-          "url": "https://crates.io/api/v1/crates/retain_mut/0.1.9/download",
-          "sha256": "4389f1d5789befaf6029ebd9f7dac4af7f7e3d61b69d4f30e2ac02b57e7712b0"
-        }
-      },
-      "targets": [
-        {
-          "Library": {
-            "crate_name": "retain_mut",
-            "crate_root": "src/lib.rs",
-            "srcs": {
-              "include": [
-                "**/*.rs"
-              ],
-              "exclude": []
-            }
-          }
-        }
-      ],
-      "library_target_name": "retain_mut",
-      "common_attrs": {
-        "compile_data_glob": [
-          "**"
-        ],
-        "edition": "2015",
-        "version": "0.1.9"
-      },
-      "license": "MIT"
-    },
     "rhai 1.11.0": {
       "name": "rhai",
       "version": "1.11.0",
@@ -15354,7 +15779,7 @@
               "target": "tower_service"
             },
             {
-              "id": "tracing 0.1.34",
+              "id": "tracing 0.1.37",
               "target": "tracing"
             }
           ],
@@ -15499,7 +15924,7 @@
               "target": "tower"
             },
             {
-              "id": "tracing 0.1.34",
+              "id": "tracing 0.1.37",
               "target": "tracing"
             }
           ],
@@ -15518,6 +15943,165 @@
         "version": "0.1.0"
       },
       "license": null
+    },
+    "rust-embed 6.4.2": {
+      "name": "rust-embed",
+      "version": "6.4.2",
+      "repository": {
+        "Http": {
+          "url": "https://crates.io/api/v1/crates/rust-embed/6.4.2/download",
+          "sha256": "283ffe2f866869428c92e0d61c2f35dfb4355293cdfdc48f49e895c15f1333d1"
+        }
+      },
+      "targets": [
+        {
+          "Library": {
+            "crate_name": "rust_embed",
+            "crate_root": "src/lib.rs",
+            "srcs": {
+              "include": [
+                "**/*.rs"
+              ],
+              "exclude": []
+            }
+          }
+        }
+      ],
+      "library_target_name": "rust_embed",
+      "common_attrs": {
+        "compile_data_glob": [
+          "**"
+        ],
+        "deps": {
+          "common": [
+            {
+              "id": "rust-embed-utils 7.3.0",
+              "target": "rust_embed_utils"
+            },
+            {
+              "id": "walkdir 2.3.2",
+              "target": "walkdir"
+            }
+          ],
+          "selects": {}
+        },
+        "edition": "2018",
+        "proc_macro_deps": {
+          "common": [
+            {
+              "id": "rust-embed-impl 6.3.1",
+              "target": "rust_embed_impl"
+            }
+          ],
+          "selects": {}
+        },
+        "version": "6.4.2"
+      },
+      "license": "MIT"
+    },
+    "rust-embed-impl 6.3.1": {
+      "name": "rust-embed-impl",
+      "version": "6.3.1",
+      "repository": {
+        "Http": {
+          "url": "https://crates.io/api/v1/crates/rust-embed-impl/6.3.1/download",
+          "sha256": "31ab23d42d71fb9be1b643fe6765d292c5e14d46912d13f3ae2815ca048ea04d"
+        }
+      },
+      "targets": [
+        {
+          "ProcMacro": {
+            "crate_name": "rust_embed_impl",
+            "crate_root": "src/lib.rs",
+            "srcs": {
+              "include": [
+                "**/*.rs"
+              ],
+              "exclude": []
+            }
+          }
+        }
+      ],
+      "library_target_name": "rust_embed_impl",
+      "common_attrs": {
+        "compile_data_glob": [
+          "**"
+        ],
+        "deps": {
+          "common": [
+            {
+              "id": "proc-macro2 1.0.47",
+              "target": "proc_macro2"
+            },
+            {
+              "id": "quote 1.0.21",
+              "target": "quote"
+            },
+            {
+              "id": "rust-embed-utils 7.3.0",
+              "target": "rust_embed_utils"
+            },
+            {
+              "id": "syn 1.0.103",
+              "target": "syn"
+            },
+            {
+              "id": "walkdir 2.3.2",
+              "target": "walkdir"
+            }
+          ],
+          "selects": {}
+        },
+        "edition": "2018",
+        "version": "6.3.1"
+      },
+      "license": "MIT"
+    },
+    "rust-embed-utils 7.3.0": {
+      "name": "rust-embed-utils",
+      "version": "7.3.0",
+      "repository": {
+        "Http": {
+          "url": "https://crates.io/api/v1/crates/rust-embed-utils/7.3.0/download",
+          "sha256": "c1669d81dfabd1b5f8e2856b8bbe146c6192b0ba22162edc738ac0a5de18f054"
+        }
+      },
+      "targets": [
+        {
+          "Library": {
+            "crate_name": "rust_embed_utils",
+            "crate_root": "src/lib.rs",
+            "srcs": {
+              "include": [
+                "**/*.rs"
+              ],
+              "exclude": []
+            }
+          }
+        }
+      ],
+      "library_target_name": "rust_embed_utils",
+      "common_attrs": {
+        "compile_data_glob": [
+          "**"
+        ],
+        "deps": {
+          "common": [
+            {
+              "id": "sha2 0.10.6",
+              "target": "sha2"
+            },
+            {
+              "id": "walkdir 2.3.2",
+              "target": "walkdir"
+            }
+          ],
+          "selects": {}
+        },
+        "edition": "2018",
+        "version": "7.3.0"
+      },
+      "license": "MIT"
     },
     "rustc-demangle 0.1.21": {
       "name": "rustc-demangle",
@@ -15673,69 +16257,6 @@
       },
       "license": "MIT/Apache-2.0"
     },
-    "rustls 0.19.1": {
-      "name": "rustls",
-      "version": "0.19.1",
-      "repository": {
-        "Http": {
-          "url": "https://crates.io/api/v1/crates/rustls/0.19.1/download",
-          "sha256": "35edb675feee39aec9c99fa5ff985081995a06d594114ae14cbe797ad7b7a6d7"
-        }
-      },
-      "targets": [
-        {
-          "Library": {
-            "crate_name": "rustls",
-            "crate_root": "src/lib.rs",
-            "srcs": {
-              "include": [
-                "**/*.rs"
-              ],
-              "exclude": []
-            }
-          }
-        }
-      ],
-      "library_target_name": "rustls",
-      "common_attrs": {
-        "compile_data_glob": [
-          "**"
-        ],
-        "crate_features": [
-          "default",
-          "log",
-          "logging"
-        ],
-        "deps": {
-          "common": [
-            {
-              "id": "base64 0.13.1",
-              "target": "base64"
-            },
-            {
-              "id": "log 0.4.17",
-              "target": "log"
-            },
-            {
-              "id": "ring 0.16.20",
-              "target": "ring"
-            },
-            {
-              "id": "sct 0.6.1",
-              "target": "sct"
-            },
-            {
-              "id": "webpki 0.21.4",
-              "target": "webpki"
-            }
-          ],
-          "selects": {}
-        },
-        "edition": "2018",
-        "version": "0.19.1"
-      },
-      "license": "Apache-2.0/ISC/MIT"
-    },
     "rustls 0.20.7": {
       "name": "rustls",
       "version": "0.20.7",
@@ -15815,71 +16336,6 @@
         "data_glob": [
           "**"
         ]
-      },
-      "license": "Apache-2.0/ISC/MIT"
-    },
-    "rustls-native-certs 0.5.0": {
-      "name": "rustls-native-certs",
-      "version": "0.5.0",
-      "repository": {
-        "Http": {
-          "url": "https://crates.io/api/v1/crates/rustls-native-certs/0.5.0/download",
-          "sha256": "5a07b7c1885bd8ed3831c289b7870b13ef46fe0e856d288c30d9cc17d75a2092"
-        }
-      },
-      "targets": [
-        {
-          "Library": {
-            "crate_name": "rustls_native_certs",
-            "crate_root": "src/lib.rs",
-            "srcs": {
-              "include": [
-                "**/*.rs"
-              ],
-              "exclude": []
-            }
-          }
-        }
-      ],
-      "library_target_name": "rustls_native_certs",
-      "common_attrs": {
-        "compile_data_glob": [
-          "**"
-        ],
-        "crate_features": [
-          "default",
-          "rustls"
-        ],
-        "deps": {
-          "common": [
-            {
-              "id": "rustls 0.19.1",
-              "target": "rustls"
-            }
-          ],
-          "selects": {
-            "cfg(all(unix, not(target_os = \"macos\")))": [
-              {
-                "id": "openssl-probe 0.1.5",
-                "target": "openssl_probe"
-              }
-            ],
-            "cfg(target_os = \"macos\")": [
-              {
-                "id": "security-framework 2.7.0",
-                "target": "security_framework"
-              }
-            ],
-            "cfg(windows)": [
-              {
-                "id": "schannel 0.1.20",
-                "target": "schannel"
-              }
-            ]
-          }
-        },
-        "edition": "2018",
-        "version": "0.5.0"
       },
       "license": "Apache-2.0/ISC/MIT"
     },
@@ -16285,52 +16741,6 @@
         "version": "1.1.0"
       },
       "license": "MIT/Apache-2.0"
-    },
-    "sct 0.6.1": {
-      "name": "sct",
-      "version": "0.6.1",
-      "repository": {
-        "Http": {
-          "url": "https://crates.io/api/v1/crates/sct/0.6.1/download",
-          "sha256": "b362b83898e0e69f38515b82ee15aa80636befe47c3b6d3d89a911e78fc228ce"
-        }
-      },
-      "targets": [
-        {
-          "Library": {
-            "crate_name": "sct",
-            "crate_root": "src/lib.rs",
-            "srcs": {
-              "include": [
-                "**/*.rs"
-              ],
-              "exclude": []
-            }
-          }
-        }
-      ],
-      "library_target_name": "sct",
-      "common_attrs": {
-        "compile_data_glob": [
-          "**"
-        ],
-        "deps": {
-          "common": [
-            {
-              "id": "ring 0.16.20",
-              "target": "ring"
-            },
-            {
-              "id": "untrusted 0.7.1",
-              "target": "untrusted"
-            }
-          ],
-          "selects": {}
-        },
-        "edition": "2018",
-        "version": "0.6.1"
-      },
-      "license": "Apache-2.0/ISC/MIT"
     },
     "sct 0.7.0": {
       "name": "sct",
@@ -19000,13 +19410,13 @@
       },
       "license": "MIT/Apache-2.0"
     },
-    "thrift 0.15.0": {
+    "thrift 0.16.0": {
       "name": "thrift",
-      "version": "0.15.0",
+      "version": "0.16.0",
       "repository": {
         "Http": {
-          "url": "https://crates.io/api/v1/crates/thrift/0.15.0/download",
-          "sha256": "b82ca8f46f95b3ce96081fe3dd89160fdea970c254bb72925255d1b62aae692e"
+          "url": "https://crates.io/api/v1/crates/thrift/0.16.0/download",
+          "sha256": "09678c4cdbb4eed72e18b7c2af1329c69825ed16fcbac62d083fc3e2b0590ff0"
         }
       },
       "targets": [
@@ -19027,6 +19437,12 @@
       "common_attrs": {
         "compile_data_glob": [
           "**"
+        ],
+        "crate_features": [
+          "default",
+          "log",
+          "server",
+          "threadpool"
         ],
         "deps": {
           "common": [
@@ -19054,7 +19470,7 @@
           "selects": {}
         },
         "edition": "2018",
-        "version": "0.15.0"
+        "version": "0.16.0"
       },
       "license": "Apache-2.0"
     },
@@ -19590,56 +20006,6 @@
       },
       "license": "MIT"
     },
-    "tokio-rustls 0.22.0": {
-      "name": "tokio-rustls",
-      "version": "0.22.0",
-      "repository": {
-        "Http": {
-          "url": "https://crates.io/api/v1/crates/tokio-rustls/0.22.0/download",
-          "sha256": "bc6844de72e57df1980054b38be3a9f4702aba4858be64dd700181a8a6d0e1b6"
-        }
-      },
-      "targets": [
-        {
-          "Library": {
-            "crate_name": "tokio_rustls",
-            "crate_root": "src/lib.rs",
-            "srcs": {
-              "include": [
-                "**/*.rs"
-              ],
-              "exclude": []
-            }
-          }
-        }
-      ],
-      "library_target_name": "tokio_rustls",
-      "common_attrs": {
-        "compile_data_glob": [
-          "**"
-        ],
-        "deps": {
-          "common": [
-            {
-              "id": "rustls 0.19.1",
-              "target": "rustls"
-            },
-            {
-              "id": "tokio 1.22.0",
-              "target": "tokio"
-            },
-            {
-              "id": "webpki 0.21.4",
-              "target": "webpki"
-            }
-          ],
-          "selects": {}
-        },
-        "edition": "2018",
-        "version": "0.22.0"
-      },
-      "license": "MIT/Apache-2.0"
-    },
     "tokio-rustls 0.23.4": {
       "name": "tokio-rustls",
       "version": "0.23.4",
@@ -19756,72 +20122,6 @@
       },
       "license": "MIT"
     },
-    "tokio-util 0.6.10": {
-      "name": "tokio-util",
-      "version": "0.6.10",
-      "repository": {
-        "Http": {
-          "url": "https://crates.io/api/v1/crates/tokio-util/0.6.10/download",
-          "sha256": "36943ee01a6d67977dd3f84a5a1d2efeb4ada3a1ae771cadfaa535d9d9fc6507"
-        }
-      },
-      "targets": [
-        {
-          "Library": {
-            "crate_name": "tokio_util",
-            "crate_root": "src/lib.rs",
-            "srcs": {
-              "include": [
-                "**/*.rs"
-              ],
-              "exclude": []
-            }
-          }
-        }
-      ],
-      "library_target_name": "tokio_util",
-      "common_attrs": {
-        "compile_data_glob": [
-          "**"
-        ],
-        "crate_features": [
-          "codec",
-          "default"
-        ],
-        "deps": {
-          "common": [
-            {
-              "id": "bytes 1.3.0",
-              "target": "bytes"
-            },
-            {
-              "id": "futures-core 0.3.25",
-              "target": "futures_core"
-            },
-            {
-              "id": "futures-sink 0.3.25",
-              "target": "futures_sink"
-            },
-            {
-              "id": "log 0.4.17",
-              "target": "log"
-            },
-            {
-              "id": "pin-project-lite 0.2.9",
-              "target": "pin_project_lite"
-            },
-            {
-              "id": "tokio 1.22.0",
-              "target": "tokio"
-            }
-          ],
-          "selects": {}
-        },
-        "edition": "2018",
-        "version": "0.6.10"
-      },
-      "license": "MIT"
-    },
     "tokio-util 0.7.4": {
       "name": "tokio-util",
       "version": "0.7.4",
@@ -19880,7 +20180,7 @@
               "target": "tokio"
             },
             {
-              "id": "tracing 0.1.34",
+              "id": "tracing 0.1.37",
               "target": "tracing"
             }
           ],
@@ -19936,13 +20236,13 @@
       },
       "license": "MIT/Apache-2.0"
     },
-    "tonic 0.6.2": {
+    "tonic 0.8.2": {
       "name": "tonic",
-      "version": "0.6.2",
+      "version": "0.8.2",
       "repository": {
         "Http": {
-          "url": "https://crates.io/api/v1/crates/tonic/0.6.2/download",
-          "sha256": "ff08f4649d10a70ffa3522ca559031285d8e421d727ac85c60825761818f5d0a"
+          "url": "https://crates.io/api/v1/crates/tonic/0.8.2/download",
+          "sha256": "55b9af819e54b8f33d453655bef9b9acc171568fb49523078d0cc4e7484200ec"
         }
       },
       "targets": [
@@ -19966,6 +20266,8 @@
         ],
         "crate_features": [
           "async-trait",
+          "axum",
+          "channel",
           "codegen",
           "default",
           "h2",
@@ -19975,6 +20277,7 @@
           "prost-derive",
           "prost1",
           "rustls-native-certs",
+          "rustls-pemfile",
           "tls",
           "tls-roots",
           "tls-roots-common",
@@ -19989,6 +20292,10 @@
             {
               "id": "async-stream 0.3.3",
               "target": "async_stream"
+            },
+            {
+              "id": "axum 0.5.17",
+              "target": "axum"
             },
             {
               "id": "base64 0.13.1",
@@ -20035,20 +20342,24 @@
               "target": "pin_project"
             },
             {
-              "id": "prost 0.9.0",
+              "id": "prost 0.11.2",
               "target": "prost",
               "alias": "prost1"
             },
             {
-              "id": "rustls-native-certs 0.5.0",
+              "id": "rustls-native-certs 0.6.2",
               "target": "rustls_native_certs"
+            },
+            {
+              "id": "rustls-pemfile 1.0.1",
+              "target": "rustls_pemfile"
             },
             {
               "id": "tokio 1.22.0",
               "target": "tokio"
             },
             {
-              "id": "tokio-rustls 0.22.0",
+              "id": "tokio-rustls 0.23.4",
               "target": "tokio_rustls"
             },
             {
@@ -20056,7 +20367,7 @@
               "target": "tokio_stream"
             },
             {
-              "id": "tokio-util 0.6.10",
+              "id": "tokio-util 0.7.4",
               "target": "tokio_util"
             },
             {
@@ -20072,7 +20383,7 @@
               "target": "tower_service"
             },
             {
-              "id": "tracing 0.1.34",
+              "id": "tracing 0.1.37",
               "target": "tracing"
             },
             {
@@ -20090,23 +20401,23 @@
               "target": "async_trait"
             },
             {
-              "id": "prost-derive 0.9.0",
+              "id": "prost-derive 0.11.2",
               "target": "prost_derive"
             }
           ],
           "selects": {}
         },
-        "version": "0.6.2"
+        "version": "0.8.2"
       },
       "license": "MIT"
     },
-    "tonic-build 0.6.2": {
+    "tonic-build 0.8.2": {
       "name": "tonic-build",
-      "version": "0.6.2",
+      "version": "0.8.2",
       "repository": {
         "Http": {
-          "url": "https://crates.io/api/v1/crates/tonic-build/0.6.2/download",
-          "sha256": "9403f1bafde247186684b230dc6f38b5cd514584e8bec1dd32514be4745fa757"
+          "url": "https://crates.io/api/v1/crates/tonic-build/0.8.2/download",
+          "sha256": "48c6fd7c2581e36d63388a9e04c350c21beb7a8b059580b2e93993c526899ddc"
         }
       },
       "targets": [
@@ -20132,17 +20443,20 @@
           "default",
           "prost",
           "prost-build",
-          "rustfmt",
           "transport"
         ],
         "deps": {
           "common": [
             {
+              "id": "prettyplease 0.1.21",
+              "target": "prettyplease"
+            },
+            {
               "id": "proc-macro2 1.0.47",
               "target": "proc_macro2"
             },
             {
-              "id": "prost-build 0.9.0",
+              "id": "prost-build 0.11.2",
               "target": "prost_build"
             },
             {
@@ -20157,7 +20471,7 @@
           "selects": {}
         },
         "edition": "2018",
-        "version": "0.6.2"
+        "version": "0.8.2"
       },
       "license": "MIT"
     },
@@ -20273,7 +20587,7 @@
               "target": "tower_service"
             },
             {
-              "id": "tracing 0.1.34",
+              "id": "tracing 0.1.37",
               "target": "tracing"
             }
           ],
@@ -20390,7 +20704,7 @@
               "target": "tower_service"
             },
             {
-              "id": "tracing 0.1.34",
+              "id": "tracing 0.1.37",
               "target": "tracing"
             }
           ],
@@ -20467,13 +20781,13 @@
       },
       "license": "MIT"
     },
-    "tracing 0.1.34": {
+    "tracing 0.1.37": {
       "name": "tracing",
-      "version": "0.1.34",
+      "version": "0.1.37",
       "repository": {
         "Http": {
-          "url": "https://crates.io/api/v1/crates/tracing/0.1.34/download",
-          "sha256": "5d0ecdcb44a79f0fe9844f0c4f33a342cbcbb5117de8001e6ba0dc2351327d09"
+          "url": "https://crates.io/api/v1/crates/tracing/0.1.37/download",
+          "sha256": "8ce8c33a8d48bd45d624a6e523445fd21ec13d3653cd51f681abf67418f54eb8"
         }
       },
       "targets": [
@@ -20517,7 +20831,7 @@
               "target": "pin_project_lite"
             },
             {
-              "id": "tracing-core 0.1.26",
+              "id": "tracing-core 0.1.30",
               "target": "tracing_core"
             }
           ],
@@ -20533,7 +20847,7 @@
           ],
           "selects": {}
         },
-        "version": "0.1.34"
+        "version": "0.1.37"
       },
       "license": "MIT"
     },
@@ -20587,13 +20901,13 @@
       },
       "license": "MIT"
     },
-    "tracing-core 0.1.26": {
+    "tracing-core 0.1.30": {
       "name": "tracing-core",
-      "version": "0.1.26",
+      "version": "0.1.30",
       "repository": {
         "Http": {
-          "url": "https://crates.io/api/v1/crates/tracing-core/0.1.26/download",
-          "sha256": "f54c8ca710e81886d498c2fd3331b56c93aa248d49de2222ad2742247c60072f"
+          "url": "https://crates.io/api/v1/crates/tracing-core/0.1.30/download",
+          "sha256": "24eb03ba0eab1fd845050058ce5e616558e8f8d8fca633e6b163fe25c797213a"
         }
       },
       "targets": [
@@ -20617,15 +20931,15 @@
         ],
         "crate_features": [
           "default",
-          "lazy_static",
+          "once_cell",
           "std",
           "valuable"
         ],
         "deps": {
           "common": [
             {
-              "id": "lazy_static 1.4.0",
-              "target": "lazy_static"
+              "id": "once_cell 1.16.0",
+              "target": "once_cell"
             }
           ],
           "selects": {
@@ -20638,7 +20952,7 @@
           }
         },
         "edition": "2018",
-        "version": "0.1.26"
+        "version": "0.1.30"
       },
       "license": "MIT"
     },
@@ -20694,7 +21008,7 @@
               "target": "pin_project"
             },
             {
-              "id": "tracing 0.1.34",
+              "id": "tracing 0.1.37",
               "target": "tracing"
             }
           ],
@@ -20748,7 +21062,7 @@
               "target": "log"
             },
             {
-              "id": "tracing-core 0.1.26",
+              "id": "tracing-core 0.1.30",
               "target": "tracing_core"
             }
           ],
@@ -20759,13 +21073,13 @@
       },
       "license": "MIT"
     },
-    "tracing-opentelemetry 0.17.4": {
+    "tracing-opentelemetry 0.18.0": {
       "name": "tracing-opentelemetry",
-      "version": "0.17.4",
+      "version": "0.18.0",
       "repository": {
         "Http": {
-          "url": "https://crates.io/api/v1/crates/tracing-opentelemetry/0.17.4/download",
-          "sha256": "fbbe89715c1dbbb790059e2565353978564924ee85017b5fff365c872ff6721f"
+          "url": "https://crates.io/api/v1/crates/tracing-opentelemetry/0.18.0/download",
+          "sha256": "21ebb87a95ea13271332df069020513ab70bdb5637ca42d6e492dc3bbbad48de"
         }
       },
       "targets": [
@@ -20789,6 +21103,7 @@
         ],
         "crate_features": [
           "default",
+          "metrics",
           "tracing-log"
         ],
         "deps": {
@@ -20798,15 +21113,15 @@
               "target": "once_cell"
             },
             {
-              "id": "opentelemetry 0.17.0",
+              "id": "opentelemetry 0.18.0",
               "target": "opentelemetry"
             },
             {
-              "id": "tracing 0.1.34",
+              "id": "tracing 0.1.37",
               "target": "tracing"
             },
             {
-              "id": "tracing-core 0.1.26",
+              "id": "tracing-core 0.1.30",
               "target": "tracing_core"
             },
             {
@@ -20814,14 +21129,14 @@
               "target": "tracing_log"
             },
             {
-              "id": "tracing-subscriber 0.3.11",
+              "id": "tracing-subscriber 0.3.16",
               "target": "tracing_subscriber"
             }
           ],
           "selects": {}
         },
         "edition": "2018",
-        "version": "0.17.4"
+        "version": "0.18.0"
       },
       "license": "MIT"
     },
@@ -20860,7 +21175,7 @@
               "target": "serde"
             },
             {
-              "id": "tracing-core 0.1.26",
+              "id": "tracing-core 0.1.30",
               "target": "tracing_core"
             }
           ],
@@ -20871,13 +21186,13 @@
       },
       "license": "MIT"
     },
-    "tracing-subscriber 0.3.11": {
+    "tracing-subscriber 0.3.16": {
       "name": "tracing-subscriber",
-      "version": "0.3.11",
+      "version": "0.3.16",
       "repository": {
         "Http": {
-          "url": "https://crates.io/api/v1/crates/tracing-subscriber/0.3.11/download",
-          "sha256": "4bc28f93baff38037f64e6f43d34cfa1605f27a49c34e8a04c5e78b0babf2596"
+          "url": "https://crates.io/api/v1/crates/tracing-subscriber/0.3.16/download",
+          "sha256": "a6176eae26dd70d0c919749377897b54a9276bd7061339665dd68777926b5a70"
         }
       },
       "targets": [
@@ -20902,13 +21217,13 @@
         "crate_features": [
           "alloc",
           "ansi",
-          "ansi_term",
           "default",
           "env-filter",
           "fmt",
           "json",
-          "lazy_static",
           "matchers",
+          "nu-ansi-term",
+          "once_cell",
           "regex",
           "registry",
           "serde",
@@ -20924,16 +21239,16 @@
         "deps": {
           "common": [
             {
-              "id": "ansi_term 0.12.1",
-              "target": "ansi_term"
-            },
-            {
-              "id": "lazy_static 1.4.0",
-              "target": "lazy_static"
-            },
-            {
               "id": "matchers 0.1.0",
               "target": "matchers"
+            },
+            {
+              "id": "nu-ansi-term 0.46.0",
+              "target": "nu_ansi_term"
+            },
+            {
+              "id": "once_cell 1.16.0",
+              "target": "once_cell"
             },
             {
               "id": "regex 1.7.0",
@@ -20960,11 +21275,11 @@
               "target": "thread_local"
             },
             {
-              "id": "tracing 0.1.34",
+              "id": "tracing 0.1.37",
               "target": "tracing"
             },
             {
-              "id": "tracing-core 0.1.26",
+              "id": "tracing-core 0.1.30",
               "target": "tracing_core"
             },
             {
@@ -20979,7 +21294,7 @@
           "selects": {}
         },
         "edition": "2018",
-        "version": "0.3.11"
+        "version": "0.3.16"
       },
       "license": "MIT"
     },
@@ -21223,6 +21538,119 @@
         "data_glob": [
           "**"
         ]
+      },
+      "license": "MIT OR Apache-2.0"
+    },
+    "typetag 0.1.8": {
+      "name": "typetag",
+      "version": "0.1.8",
+      "repository": {
+        "Http": {
+          "url": "https://crates.io/api/v1/crates/typetag/0.1.8/download",
+          "sha256": "4080564c5b2241b5bff53ab610082234e0c57b0417f4bd10596f183001505b8a"
+        }
+      },
+      "targets": [
+        {
+          "Library": {
+            "crate_name": "typetag",
+            "crate_root": "src/lib.rs",
+            "srcs": {
+              "include": [
+                "**/*.rs"
+              ],
+              "exclude": []
+            }
+          }
+        }
+      ],
+      "library_target_name": "typetag",
+      "common_attrs": {
+        "compile_data_glob": [
+          "**"
+        ],
+        "deps": {
+          "common": [
+            {
+              "id": "erased-serde 0.3.23",
+              "target": "erased_serde"
+            },
+            {
+              "id": "inventory 0.2.3",
+              "target": "inventory"
+            },
+            {
+              "id": "once_cell 1.16.0",
+              "target": "once_cell"
+            },
+            {
+              "id": "serde 1.0.147",
+              "target": "serde"
+            }
+          ],
+          "selects": {}
+        },
+        "edition": "2018",
+        "proc_macro_deps": {
+          "common": [
+            {
+              "id": "typetag-impl 0.1.8",
+              "target": "typetag_impl"
+            }
+          ],
+          "selects": {}
+        },
+        "version": "0.1.8"
+      },
+      "license": "MIT OR Apache-2.0"
+    },
+    "typetag-impl 0.1.8": {
+      "name": "typetag-impl",
+      "version": "0.1.8",
+      "repository": {
+        "Http": {
+          "url": "https://crates.io/api/v1/crates/typetag-impl/0.1.8/download",
+          "sha256": "e60147782cc30833c05fba3bab1d9b5771b2685a2557672ac96fa5d154099c0e"
+        }
+      },
+      "targets": [
+        {
+          "ProcMacro": {
+            "crate_name": "typetag_impl",
+            "crate_root": "src/lib.rs",
+            "srcs": {
+              "include": [
+                "**/*.rs"
+              ],
+              "exclude": []
+            }
+          }
+        }
+      ],
+      "library_target_name": "typetag_impl",
+      "common_attrs": {
+        "compile_data_glob": [
+          "**"
+        ],
+        "deps": {
+          "common": [
+            {
+              "id": "proc-macro2 1.0.47",
+              "target": "proc_macro2"
+            },
+            {
+              "id": "quote 1.0.21",
+              "target": "quote"
+            },
+            {
+              "id": "syn 1.0.103",
+              "target": "syn"
+            }
+          ],
+          "selects": {}
+        },
+        "edition": "2018",
+        "version": "0.1.8"
       },
       "license": "MIT OR Apache-2.0"
     },
@@ -22677,57 +23105,6 @@
         "version": "0.3.60"
       },
       "license": "MIT/Apache-2.0"
-    },
-    "webpki 0.21.4": {
-      "name": "webpki",
-      "version": "0.21.4",
-      "repository": {
-        "Http": {
-          "url": "https://crates.io/api/v1/crates/webpki/0.21.4/download",
-          "sha256": "b8e38c0608262c46d4a56202ebabdeb094cef7e560ca7a226c6bf055188aa4ea"
-        }
-      },
-      "targets": [
-        {
-          "Library": {
-            "crate_name": "webpki",
-            "crate_root": "src/webpki.rs",
-            "srcs": {
-              "include": [
-                "**/*.rs"
-              ],
-              "exclude": []
-            }
-          }
-        }
-      ],
-      "library_target_name": "webpki",
-      "common_attrs": {
-        "compile_data_glob": [
-          "**"
-        ],
-        "crate_features": [
-          "default",
-          "std",
-          "trust_anchor_util"
-        ],
-        "deps": {
-          "common": [
-            {
-              "id": "ring 0.16.20",
-              "target": "ring"
-            },
-            {
-              "id": "untrusted 0.7.1",
-              "target": "untrusted"
-            }
-          ],
-          "selects": {}
-        },
-        "edition": "2018",
-        "version": "0.21.4"
-      },
-      "license": null
     },
     "webpki 0.22.0": {
       "name": "webpki",
