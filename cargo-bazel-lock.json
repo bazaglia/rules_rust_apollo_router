@@ -1,5 +1,5 @@
 {
-  "checksum": "9c140cbd0281bb4ce4c9a422af18afdd9a5f367d8b996befc3fd3f3f567fd37f",
+  "checksum": "16ad810361d7d10c230434762cca818f83736d4737d2a3ef3a1270b110587b23",
   "crates": {
     "access-json 0.1.0": {
       "name": "access-json",
@@ -1069,7 +1069,8 @@
       "build_script_attrs": {
         "data": {
           "common": [
-            "@com_google_protobuf//:protoc"
+            "@com_google_protobuf//:protoc",
+            "@com_google_protobuf//:well_known_type_protos"
           ],
           "selects": {}
         },
@@ -1087,7 +1088,8 @@
         },
         "build_script_env": {
           "common": {
-            "PROTOC": "$(execpath @com_google_protobuf//:protoc)"
+            "PROTOC": "$(execpath @com_google_protobuf//:protoc)",
+            "PROTOC_INCLUDE": "$${pwd}/external/com_github_protocolbuffers_protobuf/src"
           },
           "selects": {}
         }

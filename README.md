@@ -1,20 +1,16 @@
-# rust_rust_repro
+# rules_rust_apollo_router
 
-It just creates a [custom binary of the Apollo Router](https://www.apollographql.com/docs/router/customizations/custom-binary#1-create-a-new-project) so it can be customized using plugins.
+This project integrates [Apollo Router](https://github.com/apollographql/router/) with Bazel, creating a [custom binary of the Apollo Router](https://www.apollographql.com/docs/router/customizations/custom-binary#1-create-a-new-project) so it can be customized using plugins.
 
-When trying to build using Bazel:
+To build the Apollo Router binary with Bazel:
 
 ```
 bazel build //:router
 ```
 
-It fails with the following error:
+A few annotations have to be added to the `crates_repository` rule to get the compilation working with Bazel using the Rust rules. They can be found in the `WORKSPACE` file.
 
-```
-error: could not find native static library `rusty_v8`, perhaps an -L flag is missing?
-```
-
-### Compile the router
+### Compile the router without Bazel
 
 To create a debug build use the following command.
 

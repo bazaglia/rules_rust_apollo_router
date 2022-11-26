@@ -52,8 +52,18 @@ crates_repository(
             deps = [":librusty_v8"],
         )],
         "apollo-router": [crate.annotation(
-            build_script_data = ["@com_google_protobuf//:protoc"],
-            build_script_env = {"PROTOC": "$(execpath @com_google_protobuf//:protoc)"},
+            build_script_data = [
+                "@com_google_protobuf//:protoc",
+                "@com_google_protobuf//:well_known_type_protos",
+            ],
+            build_script_env = {
+                "PROTOC": "$(execpath @com_google_protobuf//:protoc)",
+                # Add protos from @com_google_protobuf//:well_known_type_protos
+                # I couldn't use the predefined variables since it expands to
+                # more than one file. There should be a better approach still.
+                # https://bazel.build/reference/be/make-variables#predefined_label_variables
+                "PROTOC_INCLUDE": "$${pwd}/external/com_github_protocolbuffers_protobuf/src",
+            },
         )],
         "opentelemetry-proto": [crate.annotation(
             build_script_data = ["@com_google_protobuf//:protoc"],
