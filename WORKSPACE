@@ -25,9 +25,8 @@ rules_proto_toolchains()
 
 http_archive(
     name = "rules_rust",
-    sha256 = "da67916d7e416b7dd3d8725c672caeeaf9fad8ffda963dc84e77a2120e3475b5",
-    strip_prefix = "rules_rust-fix-common-glob-exclude",
-    urls = ["https://github.com/bazaglia/rules_rust/archive/refs/heads/fix/common-glob-exclude.zip"],
+    sha256 = "dd79bd4e2e2adabae738c5e93c36d351cf18071ff2acf6590190acf4138984f6",
+    urls = ["https://github.com/bazelbuild/rules_rust/releases/download/0.14.0/rules_rust-v0.14.0.tar.gz"],
 )
 
 load("@rules_rust//rust:repositories.bzl", "rules_rust_dependencies", "rust_register_toolchains")
@@ -38,7 +37,7 @@ rust_register_toolchains()
 
 load("@rules_rust//crate_universe:repositories.bzl", "crate_universe_dependencies")
 
-crate_universe_dependencies(bootstrap = True)
+crate_universe_dependencies()
 
 load("@rules_rust//crate_universe:defs.bzl", "crate", "crates_repository")
 load("//:rust_annotations.bzl", "V8_ADDITIVE_BUILD_FILE_CONTENT")
@@ -71,7 +70,6 @@ crates_repository(
         )],
     },
     cargo_lockfile = "//:Cargo.lock",
-    generator = "@cargo_bazel_bootstrap//:cargo-bazel",
     lockfile = "//:cargo-bazel-lock.json",
     manifests = [
         "//:Cargo.toml",
