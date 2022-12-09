@@ -32,4 +32,4 @@ strip = "debuginfo"
 incremental = false
 
 [patch.crates-io]
-apollo-router = { git = 'https://github.com/apollographql/router', branch = 'bryn/otel-upgrade' }
+apollo-router = { git = 'https://github.com/apollographql/router', rev = '9313771b' }
